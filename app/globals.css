@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --abismo: #04101f;
+  --marino: #0a1b33;
+  --marino2: #102544;
+  --senal: #3e7bd1;
+  --claro: #8fb8ee;
+  --hielo: #7fb0f5;
+  --luz: #ffffff;
+  --tenue: #8ca3c4;
+  --cuerpo: #c6d6ec;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--abismo);
+    color: var(--luz);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--senal);
+    color: var(--luz);
+  }
+
+  /* Foco visible y sobrio: accesibilidad sin romper el diseño. */
+  :focus-visible {
+    outline: 2px solid var(--hielo);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Grano fino sobre todo el sitio. Aporta textura sin coste de red. */
+  .grano::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .ojo {
+    @apply flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.24em] text-senal;
+  }
+  .ojo::before {
+    content: '';
+    @apply block h-px w-9 bg-senal opacity-60;
+  }
+
+  /* Tipografía del cuerpo de los artículos. */
+  .prosa {
+    @apply max-w-medida text-[17px] leading-[1.75] text-cuerpo;
+  }
+  .prosa > * + * {
+    @apply mt-6;
+  }
+  .prosa h2 {
+    @apply mt-16 max-w-[24ch] font-serif text-[clamp(28px,3.6vw,42px)] font-normal leading-[1.12] tracking-[-0.015em] text-luz;
+  }
+  .prosa h3 {
+    @apply mt-12 max-w-[30ch] font-serif text-[clamp(21px,2.3vw,27px)] font-normal leading-[1.2] text-claro;
+  }
+  .prosa strong {
+    @apply font-medium text-luz;
+  }
+  .prosa em {
+    @apply italic text-claro;
+  }
+  .prosa a {
+    @apply border-b border-hielo/40 text-hielo transition-colors hover:border-luz hover:text-luz;
+  }
+  .prosa ul,
+  .prosa ol {
+    @apply space-y-3 pl-5;
+  }
+  .prosa ul {
+    @apply list-disc marker:text-senal;
+  }
+  .prosa ol {
+    @apply list-decimal marker:font-mono marker:text-[13px] marker:text-senal;
+  }
+  .prosa blockquote {
+    @apply my-12 border-l-2 border-senal py-1 pl-7 font-serif text-[clamp(22px,2.8vw,32px)] leading-[1.24] text-luz;
+  }
+  .prosa blockquote p {
+    @apply m-0;
+  }
+  .prosa hr {
+    @apply my-14 border-luz/10;
+  }
+  .prosa code {
+    @apply rounded bg-marino2 px-1.5 py-0.5 font-mono text-[0.88em] text-claro;
+  }
+
+  /* Aparición al hacer scroll. El estado final es el visible: si el JS no
+     corre o el usuario pidió menos movimiento, el contenido se ve igual. */
+  .aparece {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .aparece[data-visible='true'] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .aparece {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
