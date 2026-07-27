@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "vistaprevia": "EXPORT_LOCAL=1 next build && node scripts/relativizar.mjs",
+    "vistaprevia:win": "set EXPORT_LOCAL=1&& next build && node scripts/relativizar.mjs",
+    "auditoria": "node auditoria.mjs"
   },
   "dependencies": {
     "@fontsource/instrument-serif": "^5.1.0",

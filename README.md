@@ -10,27 +10,65 @@ transferir señal a [talentoria.com](https://talentoria.com).
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000
-npm run build      # build de producción
+npm run dev          # http://localhost:3000
+npm run build        # build de producción
+npm run auditoria    # revisión de SEO (con el sitio corriendo)
 ```
 
 Node 20 o superior.
 
+### Vista previa sin servidor
+
+Genera una copia estática navegable con doble clic, sin necesidad de levantar
+nada. Sirve para enseñarle el diseño a alguien que no tiene Node instalado.
+
+```bash
+npm run vistaprevia        # macOS / Linux
+npm run vistaprevia:win    # Windows
+```
+
+Queda en `out/`. Abre `out/index.html`. Ojo: ahí cada clic recarga la página
+entera y las direcciones se ven como archivos del disco — es el precio de
+funcionar sin servidor. El sitio real no tiene ninguna de las dos cosas.
+
+## Subir a GitHub
+
+El repositorio ya está inicializado, con el primer commit hecho y el remoto
+configurado apuntando a
+`https://github.com/antonioolivertalentoria/perlatorres.git`.
+
+```bash
+git push -u origin main
+```
+
+Si es la primera vez que usas git en esta máquina, antes:
+
+```bash
+git config --global user.name "Antonio Oliver"
+git config --global user.email "tu@correo.com"
+```
+
 ## Publicar en Vercel
 
-1. Sube el repositorio a GitHub.
-2. En Vercel: **Add New → Project → Import** ese repositorio. Detecta Next.js solo.
-3. Antes del primer deploy, añade la variable de entorno:
+1. Entra a **vercel.com** y crea la cuenta con *Continue with GitHub*.
+2. **Add New → Project → Import** el repositorio `perlatorres`. Detecta Next.js
+   solo: no cambies nada de la configuración de build.
+3. Antes de dar Deploy, abre **Environment Variables** y añade:
 
    | Variable | Valor |
    |---|---|
-   | `NEXT_PUBLIC_SITE_URL` | `https://eldominioqueelijan.com` |
+   | `NEXT_PUBLIC_SITE_URL` | `https://perlatorres.com` |
 
-   Sin ella el sitio asume `https://perlatorres.com`. Esta variable alimenta las
-   URLs canónicas, el sitemap, el robots.txt y los identificadores del schema:
-   **si queda mal, el SEO queda mal**. Es lo único que hay que configurar.
-4. Deploy. Después conecta el dominio en **Settings → Domains**.
-5. Da de alta el sitio en Google Search Console y envía `/sitemap.xml`.
+   De aquí salen las URLs canónicas, el sitemap, el robots.txt y los
+   identificadores del schema. **Si queda mal, el SEO queda mal.** Pon el
+   dominio definitivo aunque todavía no lo hayas conectado; mientras tanto
+   Vercel te da igual una URL `.vercel.app` para revisar.
+4. Deploy. Tarda dos o tres minutos.
+5. Cuando tengas el dominio: **Settings → Domains → Add**, y sigue las
+   instrucciones de DNS que te dé Vercel.
+6. Da de alta el sitio en Google Search Console y envía `/sitemap.xml`.
+
+A partir de ahí, cada `git push` a `main` redespliega solo.
 
 ---
 
