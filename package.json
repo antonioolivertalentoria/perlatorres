@@ -17,7 +17,7 @@
     "@fontsource/space-grotesk": "^5.1.0",
     "@react-three/fiber": "^9.0.0",
     "gray-matter": "^4.0.3",
-    "next": "15.1.6",
+    "next": "15.5.22",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-markdown": "^9.0.1",
