@@ -9,11 +9,27 @@ import { useEffect, useRef, useState } from 'react';
  * participa en la métrica que Google mide.
  */
 const Campo = dynamic(() => import('./Campo'), { ssr: false });
+const CampoLigero = dynamic(() => import('./CampoLigero'), { ssr: false });
+
+/**
+ * Hay equipos donde WebGL no arranca: aceleración por hardware apagada, GPU en
+ * lista negra, navegadores embebidos en otras apps. Ahí no basta con no montar
+ * el canvas — la portada se queda muerta y el sitio pierde su argumento. Se
+ * comprueba antes de elegir motor, y el respaldo 2D hace la misma coreografía.
+ */
+function hayWebGL(): boolean {
+  try {
+    const c = document.createElement('canvas');
+    return !!(c.getContext('webgl2') || c.getContext('webgl'));
+  } catch {
+    return false;
+  }
+}
 
 export default function Hero() {
   const seccion = useRef<HTMLElement>(null);
   const avance = useRef(0);
-  const [montar, setMontar] = useState(false);
+  const [motor, setMotor] = useState<'ninguno' | 'webgl' | 'ligero'>('ninguno');
   const [etapa, setEtapa] = useState<'inicio' | 'mundos' | 'campo'>('inicio');
   const capa = useRef<HTMLDivElement>(null);
 
@@ -21,11 +37,11 @@ export default function Hero() {
     const menosMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (menosMovimiento) return;
 
-    // Solo montamos WebGL si el hero llega a estar visible.
+    // Solo montamos el campo si el hero llega a estar visible.
     const io = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting) {
-          setMontar(true);
+          setMotor(hayWebGL() ? 'webgl' : 'ligero');
           io.disconnect();
         }
       },
@@ -78,7 +94,8 @@ export default function Hero() {
     <section ref={seccion} className="relative h-[320vh]" aria-label="Portada">
       {/* Capa 3D: puramente decorativa. */}
       <div ref={capa} className="pointer-events-none fixed inset-0 z-0 transition-opacity duration-300" aria-hidden="true">
-        {montar && <Campo avance={avance} />}
+        {motor === 'webgl' && <Campo avance={avance} />}
+        {motor === 'ligero' && <CampoLigero avance={avance} />}
       </div>
 
       <div className="sticky top-0 flex h-screen flex-col items-center justify-center px-5 text-center">
