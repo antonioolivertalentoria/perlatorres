@@ -16,7 +16,7 @@ import * as THREE from 'three';
  *
  *   Estado B · un solo campo
  *     · ambos se funden en un toroide que gira sobre su eje.
- *       Toroide = campo, y también retorno. ROI.
+ *       Toroide = campo cerrado: lo que sale por un lado vuelve por el otro.
  *
  * El progreso entre A y B lo manda el scroll (prop `avance`, 0→1).
  *

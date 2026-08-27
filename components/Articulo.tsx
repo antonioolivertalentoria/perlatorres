@@ -3,17 +3,32 @@ import type { Documento } from '@/lib/contenido';
 import Prosa from './Prosa';
 import Faqs from './Faqs';
 import Aparece from './Aparece';
+import Tarjetas from './Tarjetas';
+import Invitacion from './Invitacion';
+import Reconocimientos from './Reconocimientos';
 
 /** Plantilla común de todas las páginas de texto largo. */
 export default function Articulo({
   doc,
   migas,
   siguiente,
+  invitacion,
+  extra,
 }: {
   doc: Documento;
   migas?: { href: string; texto: string }[];
   siguiente?: { href: string; texto: string; etiqueta?: string };
+  /** Cierre con llamada a escribir, al final del texto. */
+  invitacion?: { titulo: string; texto?: string };
+  /** Contenido propio de la página (por ejemplo, el formulario de contacto). */
+  extra?: React.ReactNode;
 }) {
+  /**
+   * El cuerpo puede traer marcadores para intercalar bloques que no son prosa.
+   * Se parte el markdown por ellos y se pinta cada trozo en su sitio, de modo
+   * que el orden del texto sigue siendo el que se escribió en el .mdx.
+   */
+  const trozos = doc.cuerpo.split(/\[\[(SENALES|INDICADORES|INVITACION_SENALES|RECONOCIMIENTOS)\]\]/);
   return (
     <article className="relative pb-24 pt-[clamp(140px,20vh,220px)]">
       <div className="mx-auto max-w-[1180px] px-[clamp(20px,5vw,64px)]">
@@ -59,11 +74,34 @@ export default function Articulo({
 
         <hr className="my-14 max-w-[860px] border-luz/10" />
 
-        <Aparece as="section">
-          <Prosa cuerpo={doc.cuerpo} enlaces={doc.enlacesTalentoria} />
-        </Aparece>
+        {trozos.map((trozo, i) =>
+          i % 2 === 1 ? (
+            trozo === 'SENALES' ? (
+              <Tarjetas key={i} items={doc.senales ?? []} columnas={3} />
+            ) : trozo === 'INDICADORES' ? (
+              <Tarjetas key={i} items={doc.indicadores ?? []} columnas={3} />
+            ) : trozo === 'RECONOCIMIENTOS' ? (
+              <Reconocimientos key={i} modo="lista" />
+            ) : (
+              <Invitacion
+                key={i}
+                compacta
+                titulo="¿Reconoces tres o más en tu organización?"
+                texto="Es el momento de mirarlo con datos y no de memoria. Cuéntame qué estás viendo y te digo con honestidad si es mi tema o no."
+              />
+            )
+          ) : trozo.trim() ? (
+            <Aparece as="section" key={i}>
+              <Prosa cuerpo={trozo} enlaces={doc.enlacesTalentoria} />
+            </Aparece>
+          ) : null,
+        )}
+
+        {extra}
 
         <Faqs faqs={doc.faqs} />
+
+        {invitacion && <Invitacion titulo={invitacion.titulo} texto={invitacion.texto} />}
 
         {siguiente && (
           <nav className="mt-24 max-w-medida border-t border-luz/10 pt-8" aria-label="Continuar">

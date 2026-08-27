@@ -10,7 +10,8 @@ export type EnlaceTalentoria = {
 
 export type Faq = { q: string; a: string };
 
-export type Hito = { etapa: string; titulo: string; texto: string };
+/** Punto de una lista que se pinta como tarjeta, no como prosa corrida. */
+export type Bloque = { titulo: string; texto: string };
 
 export type Documento = {
   title: string;
@@ -25,7 +26,8 @@ export type Documento = {
   resumen?: string;
   enlacesTalentoria: EnlaceTalentoria[];
   faqs: Faq[];
-  hitos?: Hito[];
+  senales?: Bloque[];
+  indicadores?: Bloque[];
   cuerpo: string;
 };
 
@@ -72,22 +74,14 @@ function leerCarpeta(carpeta: string): Documento[] {
           ? (data.enlacesTalentoria as EnlaceTalentoria[])
           : [],
         faqs: Array.isArray(data.faqs) ? (data.faqs as Faq[]) : [],
-        hitos: Array.isArray(data.hitos) ? (data.hitos as Hito[]) : undefined,
+        senales: Array.isArray(data.senales) ? (data.senales as Bloque[]) : undefined,
+        indicadores: Array.isArray(data.indicadores) ? (data.indicadores as Bloque[]) : undefined,
         cuerpo: content.trim(),
       };
     });
 }
 
-/** Las diez páginas de principios, ordenadas por su número en la matriz. */
-export function principios(): Documento[] {
-  return leerCarpeta('principios').sort((a, b) => (a.numero ?? 99) - (b.numero ?? 99));
-}
-
-export function principio(slug: string): Documento | undefined {
-  return principios().find((p) => p.slug === slug);
-}
-
-/** Páginas sueltas: pilares, semblanza, Talentoría, contacto. */
+/** Páginas sueltas: el ensayo, la trayectoria, liderazgo y contacto. */
 export function paginas(): Documento[] {
   return leerCarpeta('paginas');
 }
@@ -101,10 +95,5 @@ export function pagina(slug: string): Documento | undefined {
  * Se deriva del contenido: si añades un .mdx, aparece solo.
  */
 export function rutas(): string[] {
-  return [
-    '/',
-    '/principios',
-    ...paginas().map((p) => `/${p.slug}`),
-    ...principios().map((p) => `/principios/${p.slug}`),
-  ];
+  return ['/', ...paginas().map((p) => `/${p.slug}`)];
 }

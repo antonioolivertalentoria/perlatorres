@@ -1,5 +1,5 @@
 import { chromium } from 'playwright';
-const b = await chromium.launch({executablePath:'/opt/pw-browsers/chromium-1194/chrome-linux/chrome',
+const b = await chromium.launch({executablePath: process.env.CHROMIUM_BIN || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome',
   args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--disable-dev-shm-usage']});
 const p = await b.newPage({viewport:{width:1280,height:900}});
 
@@ -9,13 +9,17 @@ const urls = [...sm.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1].replace('https:/
 console.log('RUTA'.padEnd(48), 'H1 H2  TÍTULO  DESC  CANON SCHEMA ENL→TALENTORIA');
 let fallos = [];
 const anchors = new Map();
+const internos = new Set();
 
 for (const u of urls) {
   const r = await p.goto(u === 'http://localhost:3000' ? 'http://localhost:3000/' : u, {waitUntil:'domcontentloaded'});
   const d = await p.evaluate(() => {
     const ld = [...document.querySelectorAll('script[type="application/ld+json"]')].map(s=>{try{return JSON.parse(s.textContent)}catch{return null}}).filter(Boolean);
     const tipos = ld.flatMap(g => (g['@graph']||[g]).map(n=>n['@type']));
-    const ext = [...document.querySelectorAll('a[href*="talentoria.com"]')].map(a=>({href:a.getAttribute('href'), txt:a.textContent.trim()}));
+    // Solo los del cuerpo: los del pie y el correo son de plantilla, van en
+    // todas las páginas y no son enlaces editoriales que haya que auditar.
+    const ext = [...document.querySelectorAll('main a[href^="http"][href*="talentoria.com"]')]
+      .map(a=>({href:a.getAttribute('href'), txt:a.textContent.trim()}));
     return {
       h1: document.querySelectorAll('h1').length,
       h2: document.querySelectorAll('h2').length,
@@ -25,6 +29,10 @@ for (const u of urls) {
       tipos: [...new Set(tipos)],
       ext,
       lang: document.documentElement.lang,
+      // La marca retirada no debe quedar en ningún lado del HTML servido.
+      roi: /ROI de la conciencia/i.test(document.body.innerText),
+      // Enlaces internos, para detectar los que quedaron colgando.
+      internos: [...document.querySelectorAll('a[href^="/"]')].map(a=>a.getAttribute('href')),
     };
   });
 
@@ -45,6 +53,8 @@ for (const u of urls) {
   if (d.desc<120||d.desc>165) fallos.push(`${ruta}: meta description ${d.desc} car.`);
   if (d.titulo>65) fallos.push(`${ruta}: título ${d.titulo} car.`);
   if (d.ext.length>2) fallos.push(`${ruta}: ${d.ext.length} enlaces a Talentoría (máx 2)`);
+  if (d.roi) fallos.push(`${ruta}: sigue apareciendo la frase retirada "ROI de la conciencia"`);
+  d.internos.forEach(h=>internos.add(h.split('#')[0]));
   d.ext.forEach(e=>{
     if (anchors.has(e.txt) && anchors.get(e.txt)!==ruta) fallos.push(`ANCHOR REPETIDO "${e.txt}" en ${ruta} y ${anchors.get(e.txt)}`);
     anchors.set(e.txt, ruta);
@@ -53,6 +63,33 @@ for (const u of urls) {
 
 console.log('\n=== ANCHORS HACIA TALENTORIA ===');
 [...anchors].forEach(([txt, ruta])=>console.log(`  ${ruta.padEnd(46)} "${txt}"`));
+console.log('\n=== ENLACES INTERNOS ===');
+for (const h of [...internos].sort()) {
+  if (!h || h.startsWith('/api')) continue;
+  const r = await p.goto('http://localhost:3000'+h, {waitUntil:'domcontentloaded'});
+  const destino = new URL(p.url()).pathname;
+  const marca = r.status()===200 ? (destino===h||destino===h+'/' ? 'OK  ' : '301→') : 'ROTO';
+  console.log(`  ${marca} ${h.padEnd(40)} ${marca==='301→'?destino:''}`);
+  if (r.status()!==200) fallos.push(`ENLACE ROTO: ${h} (HTTP ${r.status()})`);
+}
+
+console.log('\n=== REDIRECCIONES 301 ===');
+const REDIR = [
+  ['/el-roi-de-la-conciencia','/conciencia-y-negocios'],
+  ['/principios','/conciencia-y-negocios'],
+  ['/principios/congruencia-y-reciprocidad','/conciencia-y-negocios'],
+  ['/talentoria','/'],
+  ['/liderazgo-consciente/para-empresas','/liderazgo-consciente'],
+  ['/liderazgo-consciente/cultura-organizacional','/liderazgo-consciente'],
+];
+for (const [de, a] of REDIR) {
+  const r = await fetch('http://localhost:3000'+de, {redirect:'manual'});
+  const destino = r.headers.get('location') || '';
+  const bien = (r.status===301||r.status===308) && destino.replace(/\/$/,'') === a.replace(/\/$/,'');
+  console.log(`  ${bien?'OK  ':'MAL '} ${de.padEnd(46)} ${r.status} → ${destino}`);
+  if (!bien) fallos.push(`REDIRECCIÓN: ${de} devolvió ${r.status} → ${destino}`);
+}
+
 console.log('\n=== INCIDENCIAS ===');
 console.log(fallos.length ? fallos.join('\n') : 'ninguna');
 await b.close();

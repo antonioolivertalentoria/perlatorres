@@ -18,10 +18,10 @@ export default function NoEncontrado() {
           Ir al inicio
         </Link>
         <Link
-          href="/principios"
+          href="/conciencia-y-negocios"
           className="border-b border-senal/40 pb-1 font-mono text-[12px] uppercase tracking-[0.16em] text-claro no-underline transition-colors hover:border-luz hover:text-luz"
         >
-          Ver los principios
+          Leer el ensayo
         </Link>
       </div>
     </div>

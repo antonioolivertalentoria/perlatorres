@@ -121,6 +121,26 @@
   }
 }
 
+/**
+ * Impresión y guardado en PDF.
+ * La animación de entrada arranca con IntersectionObserver, que solo dispara
+ * para lo que llegó a estar en pantalla. Al imprimir sin haber bajado por la
+ * página, todo lo que quedaba abajo se quedaba en opacity:0 y salía en blanco.
+ * El texto siempre estuvo en el HTML; lo que faltaba era esta regla.
+ */
+@media print {
+  .aparece {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  details {
+    display: block !important;
+  }
+  details > *:not(summary) {
+    display: block !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

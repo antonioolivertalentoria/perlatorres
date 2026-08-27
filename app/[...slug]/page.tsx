@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Articulo from '@/components/Articulo';
+import FormularioContacto from '@/components/FormularioContacto';
 import Jsonld from '@/components/Jsonld';
 import { pagina, paginas } from '@/lib/contenido';
 import { grafoArticulo, grafoPerfil } from '@/lib/schema';
@@ -32,45 +33,35 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 /** Enlaces "siguiente" curados: guían la lectura y reparten autoridad interna. */
 const SIGUIENTE: Record<string, { href: string; texto: string; etiqueta: string }> = {
-  'el-roi-de-la-conciencia': {
-    href: '/principios',
-    texto: 'Los diez principios, uno por uno',
-    etiqueta: 'Continúa',
-  },
-  'liderazgo-consciente': {
-    href: '/liderazgo-consciente/para-empresas',
-    texto: 'Qué implica esto dentro de una empresa',
-    etiqueta: 'Continúa',
-  },
-  'liderazgo-consciente/para-empresas': {
-    href: '/liderazgo-consciente/cultura-organizacional',
-    texto: 'Cultura organizacional consciente',
-    etiqueta: 'Continúa',
-  },
-  'liderazgo-consciente/cultura-organizacional': {
-    href: '/contacto',
-    texto: 'Hablemos de tu equipo',
+  'conciencia-y-negocios': {
+    href: '/liderazgo-consciente',
+    texto: 'Qué es el liderazgo consciente',
     etiqueta: 'Continúa',
   },
   'perla-torres': {
-    href: '/talentoria',
-    texto: 'Por qué fundé Talentoría',
-    etiqueta: 'Continúa',
-  },
-  talentoria: {
-    href: '/el-roi-de-la-conciencia',
-    texto: 'El ROI de la conciencia',
+    href: '/conciencia-y-negocios',
+    texto: 'Por qué el mundo material está sostenido por el mundo interior',
     etiqueta: 'Continúa',
   },
 };
 
-const MIGAS: Record<string, { href: string; texto: string }[]> = {
-  'liderazgo-consciente/para-empresas': [
-    { href: '/liderazgo-consciente', texto: 'Liderazgo consciente' },
-  ],
-  'liderazgo-consciente/cultura-organizacional': [
-    { href: '/liderazgo-consciente', texto: 'Liderazgo consciente' },
-  ],
+/** Cierre con invitación a escribir, al final de cada página. */
+const INVITACION: Record<string, { titulo: string; texto?: string }> = {
+  'conciencia-y-negocios': {
+    titulo: 'Si algo de esto te sonó a tu empresa, escríbeme.',
+    texto:
+      'No necesito que traigas el problema bien diagnosticado. Cuéntame qué está pasando en tus palabras y te contesto con honestidad, incluso si la respuesta es que no soy la persona indicada.',
+  },
+  'perla-torres': {
+    titulo: '¿Trabajamos juntos?',
+    texto:
+      'Ya sabes de dónde vengo. Cuéntame de dónde vienes tú y qué está pasando en tu equipo o en tu carrera.',
+  },
+  'liderazgo-consciente': {
+    titulo: 'Hablemos de tus líderes.',
+    texto:
+      'Un diagnóstico honesto empieza con una conversación. Dime el tamaño de la empresa, el área y qué has intentado ya.',
+  },
 };
 
 export default async function PaginaSuelta({ params }: Props) {
@@ -89,7 +80,12 @@ export default async function PaginaSuelta({ params }: Props) {
   return (
     <>
       <Jsonld datos={datos} />
-      <Articulo doc={doc} migas={MIGAS[ruta]} siguiente={SIGUIENTE[ruta]} />
+      <Articulo
+        doc={doc}
+        siguiente={SIGUIENTE[ruta]}
+        invitacion={INVITACION[ruta]}
+        extra={ruta === 'contacto' ? <FormularioContacto /> : undefined}
+      />
     </>
   );
 }
