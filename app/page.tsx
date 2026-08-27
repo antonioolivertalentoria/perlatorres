@@ -1,24 +1,31 @@
 import Link from 'next/link';
 import Hero from '@/components/Hero';
-import Constelacion from '@/components/Constelacion';
 import Aparece from '@/components/Aparece';
 import Medidor from '@/components/Medidor';
 import Hueco from '@/components/Hueco';
-import { principios, pagina } from '@/lib/contenido';
+import Invitacion from '@/components/Invitacion';
+import Reconocimientos from '@/components/Reconocimientos';
+
+/** Los tres principios que sobreviven a la matriz, como frases sueltas. */
+const FRASES = [
+  'La habilidad número uno de un emprendedor no es vender',
+  'La congruencia se paga y la incongruencia se cobra',
+  'Un buen trabajo siempre te cambia la vida',
+];
+
+const CIFRAS: [string, string][] = [
+  ['20+', 'Años en gestión de personas'],
+  ['10', 'Años construyendo Talentoría'],
+  ['+3,000', 'Empresas atendidas'],
+  ['20,000+', 'Personas alcanzadas'],
+];
 
 export default function Inicio() {
-  const nodos = principios().map((p) => ({
-    numero: p.numero ?? 0,
-    titulo: p.title.split(':')[0].split('.')[0].trim(),
-    slug: p.slug,
-    resumen: p.resumen,
-  }));
-
-  const semblanza = pagina('perla-torres');
-
   return (
     <>
       <Hero />
+
+      <Reconocimientos modo="franja" />
 
       {/* ================= LA TESIS ================= */}
       <section className="relative py-[clamp(90px,13vh,160px)]">
@@ -47,7 +54,7 @@ export default function Inicio() {
             </Aparece>
             <Aparece>
               <p className="mt-7 text-[clamp(18px,1.6vw,22px)] leading-[1.6] text-[#E6EEFA]">
-                Durante años me daba vergüenza hablar de espiritualidad porque pensaba que
+                Durante años me daba vergüenza hablar de mi vida interior porque pensaba que
                 perdería credibilidad como empresaria. Hoy entiendo que esconder esa parte
                 tampoco me permitía conectar tan profundamente.
               </p>
@@ -103,45 +110,40 @@ export default function Inicio() {
 
           <Aparece className="mt-12">
             <Link
-              href="/el-roi-de-la-conciencia"
+              href="/conciencia-y-negocios"
               className="group inline-flex items-baseline gap-3 border-b border-senal/40 pb-1 font-mono text-[12px] uppercase tracking-[0.16em] text-claro no-underline transition-colors hover:border-luz hover:text-luz"
             >
-              Leer la tesis completa
+              Leer el ensayo completo
               <span className="transition-transform group-hover:translate-x-1">→</span>
             </Link>
           </Aparece>
         </div>
       </section>
 
-      {/* ================= PRINCIPIOS ================= */}
+      {/* ================= TRES FRASES ================= */}
       <section className="relative py-[clamp(90px,13vh,160px)]">
         <div className="mx-auto max-w-[1180px] px-[clamp(20px,5vw,64px)]">
-          <div className="max-w-[760px]">
-            <Aparece>
-              <p className="ojo mb-7">La matriz</p>
-              <h2 className="font-serif text-[clamp(34px,5.2vw,64px)] font-normal leading-[1.08] tracking-[-0.015em]">
-                Diez principios.
-                <br />
-                Diez ensayos.
-              </h2>
-              <p className="mt-7 text-[clamp(18px,1.6vw,22px)] leading-[1.6] text-[#E6EEFA]">
-                Cada nodo es una idea que llevo veinte años probando en campo. Cada uno se
-                convierte en una página con vida propia, y todas juntas construyen la
-                autoridad del sitio.
-              </p>
-            </Aparece>
-          </div>
+          <ul className="grid gap-px border border-senal/15 bg-senal/15 md:grid-cols-3">
+            {FRASES.map((f, i) => (
+              <Aparece as="li" key={f} delay={i * 60} className="bg-marino p-[clamp(28px,4vw,48px)]">
+                <p className="mb-6 font-mono text-[11px] tracking-[0.18em] text-senal">
+                  {String(i + 1).padStart(2, '0')}
+                </p>
+                <p className="font-serif text-[clamp(23px,2.6vw,31px)] leading-[1.18] text-luz">
+                  {f}
+                </p>
+              </Aparece>
+            ))}
+          </ul>
 
-          <Constelacion nodos={nodos} />
-
-          <Aparece className="mt-8 hidden lg:block">
-            <p className="border-l-2 border-hielo pl-4 font-mono text-[11px] leading-[1.9] tracking-[0.06em] text-tenue">
-              <span className="text-hielo">Nota de arquitectura.</span>
-              <br />
-              Cada nodo es un enlace real en el HTML, no un objeto dentro de un canvas.
-              <br />
-              El buscador ve diez enlaces internos limpios. El visitante ve una constelación.
-            </p>
+          <Aparece className="mt-12">
+            <Link
+              href="/conciencia-y-negocios"
+              className="group inline-flex items-baseline gap-3 border-b border-senal/40 pb-1 font-mono text-[12px] uppercase tracking-[0.16em] text-claro no-underline transition-colors hover:border-luz hover:text-luz"
+            >
+              Los tres, desarrollados en el ensayo
+              <span className="transition-transform group-hover:translate-x-1">→</span>
+            </Link>
           </Aparece>
         </div>
       </section>
@@ -194,41 +196,16 @@ export default function Inicio() {
             </div>
           </div>
 
-          {/* Línea de tiempo, alimentada por el frontmatter de la semblanza. */}
-          {semblanza?.hitos && (
-            <div className="relative mt-20 pl-[clamp(22px,4vw,54px)]">
-              <span
-                className="absolute inset-y-2 left-0 w-px bg-gradient-to-b from-senal via-claro to-transparent"
-                aria-hidden="true"
-              />
-              {semblanza.hitos.map((h, i) => (
-                <Aparece key={h.etapa} className="relative pb-14" delay={i * 60}>
-                  <span
-                    className="absolute -left-[clamp(22px,4vw,54px)] top-[9px] h-[9px] w-[9px] -translate-x-1 rounded-full border-[1.5px] border-senal bg-abismo"
-                    aria-hidden="true"
-                  />
-                  <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.2em] text-senal">
-                    {h.etapa}
-                  </p>
-                  <h3 className="mb-3 font-serif text-[clamp(22px,2.6vw,30px)] font-normal leading-tight text-luz">
-                    {h.titulo}
-                  </h3>
-                  <p className="max-w-[62ch] text-[16px] leading-relaxed text-cuerpo">{h.texto}</p>
-                </Aparece>
-              ))}
-            </div>
-          )}
-
           <div className="mt-12 grid gap-[18px] sm:grid-cols-2 lg:grid-cols-4">
             <Hueco etiqueta="Foto 02" nota="Perla facilitando, con grupo. Prueba de oficio." formato="16:9" />
             <Hueco etiqueta="Foto 03" nota="Escenario o conferencia, con público visible." formato="16:9" />
             <Hueco etiqueta="Foto 04" nota="Humana y cercana. Café, riendo, natural." formato="1:1" proporcion="aspect-square" />
-            <Hueco etiqueta="Fotos 05–08" nota="Archivo de distintas épocas para la línea de tiempo." formato="libre" proporcion="aspect-square" />
+            <Hueco etiqueta="Fotos 05–08" nota="Archivo para el bloque de reconocimientos." formato="libre" proporcion="aspect-square" />
           </div>
         </div>
       </section>
 
-      {/* ================= EL ROI ================= */}
+      {/* ================= LA MÉTRICA ================= */}
       <section className="relative py-[clamp(90px,13vh,160px)]">
         <div className="mx-auto max-w-[1180px] px-[clamp(20px,5vw,64px)]">
           <div className="grid items-center gap-[clamp(30px,5vw,80px)] md:grid-cols-2">
@@ -262,14 +239,9 @@ export default function Inicio() {
 
               <Aparece className="mt-10">
                 <dl className="grid grid-cols-2 gap-px border border-senal/15 bg-senal/15">
-                  {[
-                    ['20+', 'Años en gestión de personas'],
-                    ['10', 'Años construyendo Talentoría'],
-                    ['12+', 'Años de exploración interior'],
-                    ['2', 'Mundos que dejó de separar'],
-                  ].map(([n, t]) => (
+                  {CIFRAS.map(([n, t]) => (
                     <div key={t} className="bg-marino px-6 py-7">
-                      <dt className="font-serif text-[clamp(30px,4vw,44px)] leading-none text-claro">
+                      <dt className="font-serif text-[clamp(28px,3.6vw,40px)] leading-none text-claro">
                         {n}
                       </dt>
                       <dd className="mt-2.5 font-mono text-[10px] uppercase leading-[1.7] tracking-[0.16em] text-tenue">
@@ -335,6 +307,11 @@ export default function Inicio() {
                 </p>
               </div>
             </Aparece>
+
+            <Invitacion
+              titulo="¿Nos escribimos?"
+              texto="Si algo de lo que leíste aquí se parece a lo que estás viviendo —en tu empresa o en tu propia carrera— cuéntamelo en tus palabras. Contesto personalmente en menos de 48 horas."
+            />
           </div>
 
           <div className="mt-12 grid gap-[18px] md:grid-cols-2">

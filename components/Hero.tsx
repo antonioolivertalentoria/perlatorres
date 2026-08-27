@@ -1,6 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
 /**
@@ -132,11 +133,11 @@ export default function Hero() {
         </div>
 
         <p className="relative mb-7 font-mono text-[11px] uppercase tracking-[0.3em] text-tenue">
-          Perla Torres · Cofundadora de Talentoría
+          Psicóloga organizacional · Cofundadora de Talentoría
         </p>
 
         <h1 className="relative max-w-[12ch] font-serif text-[clamp(46px,10.5vw,150px)] font-normal leading-[0.94] tracking-[-0.03em]">
-          <span className="block">El ROI de la</span>
+          <span className="block">Perla</span>
           <span
             className="block italic text-transparent"
             style={{
@@ -146,14 +147,30 @@ export default function Hero() {
               backgroundClip: 'text',
             }}
           >
-            conciencia
+            Torres
           </span>
         </h1>
 
-        <p className="relative mt-8 max-w-[46ch] text-[clamp(14px,1.25vw,17px)] leading-[1.7] text-tenue">
-          Veinte años probando una sola cosa: que el mundo material está sostenido por el
-          mundo interior. Y que no hay que elegir entre los dos.
+        <p className="relative mt-8 max-w-[52ch] text-[clamp(15px,1.35vw,19px)] leading-[1.7] text-[#E6EEFA]">
+          Veinte años en gestión de personas. Acompaño a quien dirige a tomar mejores
+          decisiones sobre su gente, y a las empresas a construir culturas donde valga la
+          pena quedarse.
         </p>
+
+        <div className="relative mt-10 flex flex-wrap items-center justify-center gap-4">
+          <Link
+            href="/contacto"
+            className="rounded-sm border border-senal/60 bg-senal/15 px-7 py-3.5 font-mono text-[12px] uppercase tracking-[0.16em] text-luz no-underline transition-colors hover:border-senal hover:bg-senal/30"
+          >
+            Escríbeme
+          </Link>
+          <Link
+            href="/conciencia-y-negocios"
+            className="rounded-sm border border-luz/20 px-7 py-3.5 font-mono text-[12px] uppercase tracking-[0.16em] text-tenue no-underline transition-colors hover:border-luz/50 hover:text-luz"
+          >
+            Leer el ensayo
+          </Link>
+        </div>
 
         <p
           className="pointer-events-none absolute bottom-[14vh] left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[11px] uppercase tracking-[0.22em] text-hielo transition-opacity duration-700"

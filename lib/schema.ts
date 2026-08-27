@@ -58,7 +58,7 @@ export function sitio() {
     '@type': 'WebSite',
     '@id': ID_SITIO,
     url: SITE_URL,
-    name: `${SITE.nombre} — ${SITE.tesis}`,
+    name: SITE.nombre,
     inLanguage: SITE.idioma,
     publisher: { '@id': ID_PERSONA },
   };

@@ -16,11 +16,18 @@ export default function Faqs({ faqs }: { faqs: Faq[] }) {
       <div className="max-w-medida border-t border-luz/10">
         {faqs.map((f, i) => (
           <details key={i} className="group border-b border-luz/10 py-5" open={i === 0}>
-            <summary className="cursor-pointer list-none font-serif text-[clamp(19px,2.1vw,24px)] leading-snug text-luz marker:hidden">
-              <span className="mr-3 font-mono text-[11px] align-middle text-senal">
+            <summary className="flex cursor-pointer list-none items-baseline gap-3 font-serif text-[clamp(19px,2.1vw,24px)] leading-snug text-luz marker:hidden">
+              <span className="font-mono text-[11px] text-senal">
                 {String(i + 1).padStart(2, '0')}
               </span>
-              {f.q}
+              <span className="flex-1">{f.q}</span>
+              {/* Sin este indicador, las preguntas cerradas se leen como preguntas sin responder. */}
+              <span
+                aria-hidden="true"
+                className="shrink-0 select-none font-mono text-[18px] leading-none text-senal transition-transform duration-300 group-open:rotate-45"
+              >
+                +
+              </span>
             </summary>
             <p className="mt-4 max-w-[62ch] pl-9 text-[16px] leading-relaxed text-cuerpo">{f.a}</p>
           </details>
