@@ -103,6 +103,8 @@ export async function POST(peticion: Request) {
       {
         from: remitente,
         to: [correo],
+        // Quien conteste el acuse le llega a Perla, no a un buzón que no existe.
+        reply_to: destino,
         subject: 'Recibí tu mensaje',
         text:
           `Hola ${nombre}:\n\n` +
