@@ -6,6 +6,7 @@ import Medidor from '@/components/Medidor';
 import Invitacion from '@/components/Invitacion';
 import Reconocimientos from '@/components/Reconocimientos';
 import Galeria from '@/components/Galeria';
+import { CONTACTO } from '@/lib/site';
 
 /** Los tres principios que sobreviven a la matriz, como frases sueltas. */
 const FRASES = [
@@ -153,14 +154,24 @@ export default function Inicio() {
       <section className="relative py-[clamp(90px,13vh,160px)]">
         <div className="mx-auto max-w-[1180px] px-[clamp(20px,5vw,64px)]">
           <div className="grid items-center gap-[clamp(24px,4vw,64px)] md:grid-cols-[0.85fr_1.15fr]">
-            <div className="relative aspect-square overflow-hidden rounded-sm border border-hielo/10 bg-marino">
-              <Image
-                src="/imagenes/perla-retrato.jpg"
-                alt="Perla Torres, cofundadora de Talentoría"
-                fill
-                sizes="(min-width: 768px) 40vw, 90vw"
-                className="object-cover"
-              />
+            <div>
+              <div className="relative aspect-square overflow-hidden rounded-sm border border-hielo/10 bg-marino">
+                <Image
+                  src="/imagenes/perla-retrato.jpg"
+                  alt="Perla Torres, cofundadora de Talentoría"
+                  fill
+                  sizes="(min-width: 768px) 40vw, 90vw"
+                  className="object-cover"
+                />
+              </div>
+              <a
+                href={CONTACTO.linkedin}
+                target="_blank"
+                rel="noopener"
+                className="mt-4 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-tenue no-underline transition-colors hover:text-claro"
+              >
+                {CONTACTO.linkedinTexto} ↗
+              </a>
             </div>
             <div>
               <Aparece>
