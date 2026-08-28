@@ -5,6 +5,7 @@ import Aparece from '@/components/Aparece';
 import Medidor from '@/components/Medidor';
 import Invitacion from '@/components/Invitacion';
 import Reconocimientos from '@/components/Reconocimientos';
+import Galeria from '@/components/Galeria';
 
 /** Los tres principios que sobreviven a la matriz, como frases sueltas. */
 const FRASES = [
@@ -152,7 +153,7 @@ export default function Inicio() {
       <section className="relative py-[clamp(90px,13vh,160px)]">
         <div className="mx-auto max-w-[1180px] px-[clamp(20px,5vw,64px)]">
           <div className="grid items-center gap-[clamp(24px,4vw,64px)] md:grid-cols-[0.85fr_1.15fr]">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-sm border border-hielo/10 bg-marino">
+            <div className="relative aspect-square overflow-hidden rounded-sm border border-hielo/10 bg-marino">
               <Image
                 src="/imagenes/perla-retrato.jpg"
                 alt="Perla Torres, cofundadora de Talentoría"
@@ -199,47 +200,74 @@ export default function Inicio() {
             </div>
           </div>
 
-          <div className="mt-12 grid gap-[18px] sm:grid-cols-2 lg:grid-cols-4">
-            <div className="relative aspect-[16/9] overflow-hidden rounded-sm border border-hielo/10 bg-marino">
-              <Image
-                src="/imagenes/perla-facilitando-grupo.jpg"
-                alt="Perla Torres facilitando una capacitación frente a un grupo"
-                fill
-                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-            <div className="relative aspect-[16/9] overflow-hidden rounded-sm border border-hielo/10 bg-marino">
-              <Image
-                src="/imagenes/perla-conferencia.jpg"
-                alt="Perla Torres hablando en un escenario, con micrófono de diadema"
-                fill
-                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-            <div className="relative aspect-square overflow-hidden rounded-sm border border-hielo/10 bg-marino">
-              <Image
-                src="/imagenes/perla-evento-efecto-talentoria.jpg"
-                alt="Perla Torres sonriendo en un evento de Talentoría"
-                fill
-                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-            <div className="grid aspect-square grid-cols-2 gap-1 overflow-hidden rounded-sm border border-hielo/10 bg-marino">
-              {[
-                { src: '/imagenes/perla-premio-recursos-humanos.jpg', alt: 'Perla Torres recibiendo el reconocimiento Top 50 mejores consultorías de RH para Talentoría' },
-                { src: '/imagenes/santander-women50.jpg', alt: 'Perla Torres en la foto grupal del programa Santander Women SW50' },
-                { src: '/imagenes/foro-e100-grupo.jpg', alt: 'Perla Torres entre las 100 mejores emprendedoras de México, ASEM' },
-                { src: '/imagenes/foro-e100-reconocimiento.jpg', alt: 'Perla Torres con el reconocimiento de ASEM a las 100 mejores emprendedoras' },
-              ].map((f) => (
-                <div key={f.src} className="relative overflow-hidden">
-                  <Image src={f.src} alt={f.alt} fill sizes="12vw" className="object-cover" />
-                </div>
-              ))}
-            </div>
-          </div>
+          <Aparece className="mt-16">
+            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-tenue">
+              En acción
+            </p>
+            <Galeria
+              fotos={[
+                {
+                  src: '/imagenes/perla-facilitando-grupo.jpg',
+                  ancho: 1600,
+                  alto: 1200,
+                  alt: 'Perla Torres facilitando una capacitación frente a un grupo',
+                  etiqueta: 'Facilitando una capacitación',
+                },
+                {
+                  src: '/imagenes/perla-conferencia.jpg',
+                  ancho: 1600,
+                  alto: 1066,
+                  alt: 'Perla Torres hablando en un escenario, con micrófono de diadema',
+                  etiqueta: 'En el escenario, con diadema',
+                },
+                {
+                  src: '/imagenes/perla-evento-efecto-talentoria.jpg',
+                  ancho: 828,
+                  alto: 554,
+                  alt: 'Perla Torres sonriendo en un evento de Talentoría',
+                  etiqueta: '#EfectoTalentoría, en un evento',
+                },
+              ]}
+            />
+          </Aparece>
+
+          <Aparece className="mt-16">
+            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-tenue">
+              Reconocimientos recientes
+            </p>
+            <Galeria
+              fotos={[
+                {
+                  src: '/imagenes/perla-premio-recursos-humanos.jpg',
+                  ancho: 754,
+                  alto: 1600,
+                  alt: 'Perla Torres recibiendo el reconocimiento Top 50 mejores consultorías de RH para Talentoría',
+                  etiqueta: 'Top 50 consultorías de RH en México',
+                },
+                {
+                  src: '/imagenes/santander-women50.jpg',
+                  ancho: 1280,
+                  alto: 960,
+                  alt: 'Perla Torres en la foto grupal del programa Santander Women SW50',
+                  etiqueta: 'Santander Women 50 · SW50',
+                },
+                {
+                  src: '/imagenes/foro-e100-grupo.jpg',
+                  ancho: 1448,
+                  alto: 1086,
+                  alt: 'Perla Torres entre las 100 mejores emprendedoras de México, ASEM',
+                  etiqueta: '100 mejores emprendedoras · ASEM',
+                },
+                {
+                  src: '/imagenes/foro-e100-reconocimiento.jpg',
+                  ancho: 1086,
+                  alto: 1448,
+                  alt: 'Perla Torres con el reconocimiento de ASEM a las 100 mejores emprendedoras',
+                  etiqueta: 'Con el reconocimiento ASEM E100',
+                },
+              ]}
+            />
+          </Aparece>
         </div>
       </section>
 
@@ -350,27 +378,6 @@ export default function Inicio() {
               titulo="¿Nos escribimos?"
               texto="Si algo de lo que leíste aquí se parece a lo que estás viviendo —en tu empresa o en tu propia carrera— cuéntamelo en tus palabras. Contesto personalmente en menos de 48 horas."
             />
-          </div>
-
-          <div className="mt-12 grid gap-[18px] md:grid-cols-2">
-            <div className="relative aspect-[16/9] overflow-hidden rounded-sm border border-hielo/10 bg-marino">
-              <Image
-                src="/imagenes/foro-e100-grupo.jpg"
-                alt="Perla Torres representando a Talentoría junto a otros emprendedores reconocidos"
-                fill
-                sizes="(min-width: 768px) 50vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-            <div className="relative aspect-[16/9] overflow-hidden rounded-sm border border-hielo/10 bg-marino">
-              <Image
-                src="/imagenes/perla-retrato.jpg"
-                alt="Perla Torres, cofundadora de Talentoría"
-                fill
-                sizes="(min-width: 768px) 50vw, 100vw"
-                className="object-cover"
-              />
-            </div>
           </div>
         </div>
       </section>
