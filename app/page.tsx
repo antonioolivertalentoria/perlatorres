@@ -1,8 +1,8 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import Hero from '@/components/Hero';
 import Aparece from '@/components/Aparece';
 import Medidor from '@/components/Medidor';
-import Hueco from '@/components/Hueco';
 import Invitacion from '@/components/Invitacion';
 import Reconocimientos from '@/components/Reconocimientos';
 
@@ -152,12 +152,15 @@ export default function Inicio() {
       <section className="relative py-[clamp(90px,13vh,160px)]">
         <div className="mx-auto max-w-[1180px] px-[clamp(20px,5vw,64px)]">
           <div className="grid items-center gap-[clamp(24px,4vw,64px)] md:grid-cols-[0.85fr_1.15fr]">
-            <Hueco
-              etiqueta="Foto 01 — Portada"
-              nota="Retrato vertical, mirada a cámara, fondo oscuro limpio. Es la foto del sitio."
-              formato="4:5 · mín. 2400 px"
-              proporcion="aspect-[4/5]"
-            />
+            <div className="relative aspect-[4/5] overflow-hidden rounded-sm border border-hielo/10 bg-marino">
+              <Image
+                src="/imagenes/perla-retrato.jpg"
+                alt="Perla Torres, cofundadora de Talentoría"
+                fill
+                sizes="(min-width: 768px) 40vw, 90vw"
+                className="object-cover"
+              />
+            </div>
             <div>
               <Aparece>
                 <p className="ojo mb-7">Quién</p>
@@ -197,10 +200,45 @@ export default function Inicio() {
           </div>
 
           <div className="mt-12 grid gap-[18px] sm:grid-cols-2 lg:grid-cols-4">
-            <Hueco etiqueta="Foto 02" nota="Perla facilitando, con grupo. Prueba de oficio." formato="16:9" />
-            <Hueco etiqueta="Foto 03" nota="Escenario o conferencia, con público visible." formato="16:9" />
-            <Hueco etiqueta="Foto 04" nota="Humana y cercana. Café, riendo, natural." formato="1:1" proporcion="aspect-square" />
-            <Hueco etiqueta="Fotos 05–08" nota="Archivo para el bloque de reconocimientos." formato="libre" proporcion="aspect-square" />
+            <div className="relative aspect-[16/9] overflow-hidden rounded-sm border border-hielo/10 bg-marino">
+              <Image
+                src="/imagenes/perla-facilitando-grupo.jpg"
+                alt="Perla Torres facilitando una capacitación frente a un grupo"
+                fill
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+            <div className="relative aspect-[16/9] overflow-hidden rounded-sm border border-hielo/10 bg-marino">
+              <Image
+                src="/imagenes/perla-conferencia.jpg"
+                alt="Perla Torres hablando en un escenario, con micrófono de diadema"
+                fill
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+            <div className="relative aspect-square overflow-hidden rounded-sm border border-hielo/10 bg-marino">
+              <Image
+                src="/imagenes/perla-evento-efecto-talentoria.jpg"
+                alt="Perla Torres sonriendo en un evento de Talentoría"
+                fill
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+            <div className="grid aspect-square grid-cols-2 gap-1 overflow-hidden rounded-sm border border-hielo/10 bg-marino">
+              {[
+                { src: '/imagenes/perla-premio-recursos-humanos.jpg', alt: 'Perla Torres recibiendo el reconocimiento Top 50 mejores consultorías de RH para Talentoría' },
+                { src: '/imagenes/santander-women50.jpg', alt: 'Perla Torres en la foto grupal del programa Santander Women SW50' },
+                { src: '/imagenes/foro-e100-grupo.jpg', alt: 'Perla Torres entre las 100 mejores emprendedoras de México, ASEM' },
+                { src: '/imagenes/foro-e100-reconocimiento.jpg', alt: 'Perla Torres con el reconocimiento de ASEM a las 100 mejores emprendedoras' },
+              ].map((f) => (
+                <div key={f.src} className="relative overflow-hidden">
+                  <Image src={f.src} alt={f.alt} fill sizes="12vw" className="object-cover" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -315,8 +353,24 @@ export default function Inicio() {
           </div>
 
           <div className="mt-12 grid gap-[18px] md:grid-cols-2">
-            <Hueco etiqueta="Foto 09" nota="Perla con su socia, para la sección de Talentoría." formato="16:9" />
-            <Hueco etiqueta="Foto 12" nota="Imagen para compartidos en redes (Open Graph)." formato="1200 × 630" />
+            <div className="relative aspect-[16/9] overflow-hidden rounded-sm border border-hielo/10 bg-marino">
+              <Image
+                src="/imagenes/foro-e100-grupo.jpg"
+                alt="Perla Torres representando a Talentoría junto a otros emprendedores reconocidos"
+                fill
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+            <div className="relative aspect-[16/9] overflow-hidden rounded-sm border border-hielo/10 bg-marino">
+              <Image
+                src="/imagenes/perla-retrato.jpg"
+                alt="Perla Torres, cofundadora de Talentoría"
+                fill
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </div>
           </div>
         </div>
       </section>

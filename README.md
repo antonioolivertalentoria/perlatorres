@@ -106,7 +106,6 @@ components/
   Constelacion.tsx        Los diez principios como grafo navegable
   Articulo.tsx            Plantilla de las páginas de texto largo
   Prosa.tsx               Markdown + sustitución de los enlaces salientes
-  Hueco.tsx               Marcadores de posición de las fotos de Perla
 content/
   paginas/*.mdx           Pilares y páginas sueltas
   principios/*.mdx        Los diez ensayos
@@ -223,9 +222,12 @@ Pásalo antes de cada despliegue.
 ## Pendientes
 
 - [ ] **Confirmar el dominio** y fijar `NEXT_PUBLIC_SITE_URL`.
-- [ ] **Fotos de Perla.** Los `<Hueco>` de `app/page.tsx` marcan qué toma va en
-      cada sitio y en qué proporción. Se sustituyen por `next/image`.
-- [ ] **Imagen Open Graph** (1200×630) en `app/opengraph-image.jpg`.
+- [x] **Fotos de Perla.** Puestas en `public/imagenes/` y montadas con
+      `next/image` en `app/page.tsx`. Son fotos reales de archivo (eventos,
+      conferencias, reconocimientos), no la sesión de estudio que pedían las
+      notas originales de los `<Hueco>` — si llega una sesión profesional, se
+      sustituyen ahí mismo sin tocar el layout.
+- [x] **Imagen Open Graph** en `app/opengraph-image.jpg` (retrato de Perla).
 - [ ] **Perfiles sociales** en `SITE.autor.sameAs` (`lib/site.ts`). Cada uno
       refuerza la entidad.
 - [ ] **Schema recíproco en talentoria.com** (ver arriba).
