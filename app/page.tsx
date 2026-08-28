@@ -211,21 +211,21 @@ export default function Inicio() {
                   ancho: 1600,
                   alto: 1200,
                   alt: 'Perla Torres facilitando una capacitación frente a un grupo',
-                  etiqueta: 'Facilitando una capacitación',
+                  etiqueta: 'Impartiendo una capacitación',
                 },
                 {
                   src: '/imagenes/perla-conferencia.jpg',
                   ancho: 1600,
                   alto: 1066,
                   alt: 'Perla Torres hablando en un escenario, con micrófono de diadema',
-                  etiqueta: 'En el escenario, con diadema',
+                  etiqueta: 'Como conferencista invitada',
                 },
                 {
                   src: '/imagenes/perla-evento-efecto-talentoria.jpg',
                   ancho: 828,
                   alto: 554,
                   alt: 'Perla Torres sonriendo en un evento de Talentoría',
-                  etiqueta: '#EfectoTalentoría, en un evento',
+                  etiqueta: 'En un evento de Talentoría',
                 },
               ]}
             />
