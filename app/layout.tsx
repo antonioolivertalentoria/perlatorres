@@ -49,7 +49,7 @@ const mono = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE.nombre} — ${SITE.lema}`,
+    default: `${SITE.nombre} | ${SITE.lema}`,
     template: `%s · ${SITE.nombre}`,
   },
   description: SITE.descripcion,
@@ -62,12 +62,12 @@ export const metadata: Metadata = {
     locale: 'es_MX',
     url: SITE_URL,
     siteName: SITE.nombre,
-    title: `${SITE.nombre} — ${SITE.lema}`,
+    title: `${SITE.nombre} | ${SITE.lema}`,
     description: SITE.descripcion,
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${SITE.nombre} — ${SITE.lema}`,
+    title: `${SITE.nombre} | ${SITE.lema}`,
     description: SITE.descripcion,
   },
   robots: {

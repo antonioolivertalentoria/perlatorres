@@ -132,8 +132,8 @@ export default function Hero() {
           </div>
         </div>
 
-        <p className="relative mb-7 font-mono text-[11px] uppercase tracking-[0.3em] text-tenue">
-          Psicóloga organizacional · Cofundadora de Talentoría
+        <p className="relative mb-7 max-w-[46ch] font-mono text-[11px] uppercase leading-[1.9] tracking-[0.3em] text-tenue">
+          Empresaria · Estratega de talento · Cofundadora y directora consultora de Talentoría
         </p>
 
         <h1 className="relative max-w-[12ch] font-serif text-[clamp(46px,10.5vw,150px)] font-normal leading-[0.94] tracking-[-0.03em]">
@@ -151,10 +151,10 @@ export default function Hero() {
           </span>
         </h1>
 
-        <p className="relative mt-8 max-w-[52ch] text-[clamp(15px,1.35vw,19px)] leading-[1.7] text-[#E6EEFA]">
-          Veinte años en gestión de personas. Acompaño a quien dirige a tomar mejores
-          decisiones sobre su gente, y a las empresas a construir culturas donde valga la
-          pena quedarse.
+        <p className="relative mt-8 max-w-[56ch] text-[clamp(15px,1.35vw,19px)] leading-[1.7] text-[#E6EEFA]">
+          Llevo veinte años en la intersección entre personas y negocio. Escucho lo que una
+          empresa quiere resolver, identifico el verdadero reto de talento y articulo la
+          solución, las alianzas y la siguiente decisión para hacerlo avanzar.
         </p>
 
         <div className="relative mt-10 flex flex-wrap items-center justify-center gap-4">

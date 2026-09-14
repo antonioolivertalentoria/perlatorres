@@ -124,8 +124,8 @@ export default function FormularioContacto() {
           <p aria-live="polite" className="mt-5 text-[15px] leading-relaxed">
             {estado === 'enviado' && (
               <span className="text-hielo">
-                Listo, tu mensaje llegó. Te mandé un acuse por correo y Perla te contesta
-                personalmente en menos de 48 horas.
+                Listo, tu mensaje llegó. Te mandé un acuse por correo y lo canalizamos con
+                quien corresponda.
               </span>
             )}
             {estado === 'error' && <span className="text-[#F0A5A5]">{aviso}</span>}
@@ -152,8 +152,8 @@ export default function FormularioContacto() {
             <span aria-hidden="true">↗</span>
           </a>
           <p className="mt-8 max-w-[34ch] text-[15px] leading-[1.75] text-tenue">
-            Contesto todos los mensajes, incluso cuando la respuesta honesta es que no soy la
-            persona indicada.
+            Todos los mensajes se leen y se canalizan, incluso cuando la respuesta honesta es
+            que el tema le toca a otra persona del equipo.
           </p>
         </div>
       </div>

@@ -17,6 +17,11 @@ export type Documento = {
   title: string;
   /** Título corto para la etiqueta <title>. Ver `tituloSeo()`. */
   tituloSeo: string;
+  /**
+   * Etiqueta <title> completa, sin el sufijo " · Perla Torres" de la
+   * plantilla. Solo para páginas cuyo título ya contiene el nombre.
+   */
+  tituloAbsoluto?: string;
   slug: string;
   description: string;
   eyebrow?: string;
@@ -63,6 +68,7 @@ function leerCarpeta(carpeta: string): Documento[] {
       return {
         title,
         tituloSeo: tituloSeo(data.tituloSeo ? String(data.tituloSeo) : title),
+        tituloAbsoluto: data.tituloAbsoluto ? String(data.tituloAbsoluto) : undefined,
         slug: String(data.slug ?? archivo.replace(/\.mdx$/, '')),
         description: String(data.description ?? ''),
         eyebrow: data.eyebrow ? String(data.eyebrow) : undefined,

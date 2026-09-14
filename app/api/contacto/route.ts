@@ -108,12 +108,12 @@ export async function POST(peticion: Request) {
         subject: 'Recibí tu mensaje',
         text:
           `Hola ${nombre}:\n\n` +
-          'Recibí tu mensaje. Te contesto personalmente en menos de 48 horas.\n\n' +
+          'Recibí tu mensaje. Lo leo y lo canalizo con la persona indicada del equipo.\n\n' +
           'Este acuse es automático; no hace falta que respondas.\n\n' +
           `${SITE.autor.nombre}\n${SITE.autor.puesto}\n`,
         html:
           `<p>Hola ${escapar(nombre)}:</p>` +
-          '<p>Recibí tu mensaje. Te contesto personalmente en menos de 48 horas.</p>' +
+          '<p>Recibí tu mensaje. Lo leo y lo canalizo con la persona indicada del equipo.</p>' +
           '<p style="color:#667">Este acuse es automático; no hace falta que respondas.</p>' +
           `<p>${SITE.autor.nombre}<br>${SITE.autor.puesto}</p>`,
       },

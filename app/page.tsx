@@ -18,8 +18,8 @@ const FRASES = [
 const CIFRAS: [string, string][] = [
   ['20+', 'Años en gestión de personas'],
   ['10', 'Años construyendo Talentoría'],
-  ['+3,000', 'Empresas atendidas'],
-  ['20,000+', 'Personas alcanzadas'],
+  ['+2,000', 'Empresas atendidas'],
+  ['+12,000', 'Personas alcanzadas'],
 ];
 
 export default function Inicio() {
@@ -158,7 +158,7 @@ export default function Inicio() {
               <div className="relative aspect-square overflow-hidden rounded-sm border border-hielo/10 bg-marino">
                 <Image
                   src="/imagenes/perla-retrato.jpg"
-                  alt="Perla Torres, cofundadora de Talentoría"
+                  alt="Perla Torres, empresaria, estratega de talento y cofundadora de Talentoría"
                   fill
                   sizes="(min-width: 768px) 40vw, 90vw"
                   className="object-cover"
@@ -252,28 +252,28 @@ export default function Inicio() {
                   src: '/imagenes/perla-premio-recursos-humanos.jpg',
                   ancho: 754,
                   alto: 1600,
-                  alt: 'Perla Torres recibiendo el reconocimiento Top 50 mejores consultorías de RH para Talentoría',
-                  etiqueta: 'Top 50 consultorías de RH en México',
+                  alt: 'Perla Torres recibiendo el reconocimiento a Talentoría entre las Top 50 consultorías de Recursos Humanos de México',
+                  etiqueta: 'Top 50 consultorías de RH · Talentoría',
                 },
                 {
                   src: '/imagenes/santander-women50.jpg',
                   ancho: 1280,
                   alto: 960,
-                  alt: 'Perla Torres en la foto grupal del programa Santander Women SW50',
-                  etiqueta: 'Santander Women 50 · SW50',
+                  alt: 'Perla Torres en la foto grupal del programa Santander Women Future 50',
+                  etiqueta: 'Santander Women | Future 50',
                 },
                 {
                   src: '/imagenes/foro-e100-grupo.jpg',
                   ancho: 1448,
                   alto: 1086,
-                  alt: 'Perla Torres entre las 100 mejores emprendedoras de México, ASEM',
-                  etiqueta: '100 mejores emprendedoras · ASEM',
+                  alt: 'Perla Torres con la Generación 2026 del E-100 de ASEM, las 100 personas fundadoras más inspiradoras de México',
+                  etiqueta: 'Generación 2026 E-100 · ASEM',
                 },
                 {
                   src: '/imagenes/foro-e100-reconocimiento.jpg',
                   ancho: 1086,
                   alto: 1448,
-                  alt: 'Perla Torres con el reconocimiento de ASEM a las 100 mejores emprendedoras',
+                  alt: 'Perla Torres con el reconocimiento del E-100 de ASEM, generación 2026',
                   etiqueta: 'Con el reconocimiento ASEM E100',
                 },
               ]}
@@ -387,7 +387,7 @@ export default function Inicio() {
 
             <Invitacion
               titulo="¿Nos escribimos?"
-              texto="Si algo de lo que leíste aquí se parece a lo que estás viviendo —en tu empresa o en tu propia carrera— cuéntamelo en tus palabras. Contesto personalmente en menos de 48 horas."
+              texto="Si algo de lo que leíste aquí se parece a lo que estás viviendo, hay dos caminos: si es un tema de servicios para tu empresa, Talentoría es quien lo diseña y lo ejecuta; si es una conferencia, una entrevista o una alianza, escríbeme a mí."
             />
           </div>
         </div>

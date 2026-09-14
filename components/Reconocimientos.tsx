@@ -3,9 +3,10 @@ import Aparece from './Aparece';
 
 /**
  * Dos presentaciones del mismo dato.
- * `franja`: portada, solo los nombres, sin explicación.
+ * `franja`: portada, nombre corto, sin explicación.
  * `lista`: trayectoria, cada uno con su línea de contexto (qué es, cuándo,
- * por qué) para quien está evaluando a Perla para un panel o una conferencia.
+ * por qué) y, cuando existe, el enlace a la fuente externa oficial. Eso es lo
+ * que permite verificar el reconocimiento sin tener que creernos.
  */
 export default function Reconocimientos({ modo }: { modo: 'franja' | 'lista' }) {
   if (modo === 'franja') {
@@ -18,7 +19,7 @@ export default function Reconocimientos({ modo }: { modo: 'franja' | 'lista' }) 
                 key={r.nombre}
                 className="font-mono text-[11px] uppercase leading-[1.7] tracking-[0.14em] text-tenue"
               >
-                {r.nombre}
+                {r.corto ?? r.nombre}
               </li>
             ))}
           </ul>
@@ -40,6 +41,17 @@ export default function Reconocimientos({ modo }: { modo: 'franja' | 'lista' }) 
               <p className="mt-2.5 max-w-[62ch] text-[15px] leading-[1.7] text-cuerpo">
                 {r.contexto}
               </p>
+            )}
+            {r.url && (
+              <a
+                href={r.url}
+                target="_blank"
+                rel="noopener"
+                className="mt-3 inline-flex items-baseline gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-tenue no-underline transition-colors hover:text-claro"
+              >
+                Ver la fuente
+                <span aria-hidden="true">↗</span>
+              </a>
             )}
           </Aparece>
         ))}

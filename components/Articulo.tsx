@@ -5,7 +5,9 @@ import Faqs from './Faqs';
 import Aparece from './Aparece';
 import Tarjetas from './Tarjetas';
 import Invitacion from './Invitacion';
+import RutasContacto from './RutasContacto';
 import Reconocimientos from './Reconocimientos';
+import Evidencias from './Evidencias';
 
 /** Plantilla común de todas las páginas de texto largo. */
 export default function Articulo({
@@ -28,7 +30,9 @@ export default function Articulo({
    * Se parte el markdown por ellos y se pinta cada trozo en su sitio, de modo
    * que el orden del texto sigue siendo el que se escribió en el .mdx.
    */
-  const trozos = doc.cuerpo.split(/\[\[(SENALES|INDICADORES|INVITACION_SENALES|RECONOCIMIENTOS)\]\]/);
+  const trozos = doc.cuerpo.split(
+    /\[\[(SENALES|INDICADORES|INVITACION_SENALES|RECONOCIMIENTOS|EVIDENCIAS|RUTAS)\]\]/,
+  );
   return (
     <article className="relative pb-24 pt-[clamp(140px,20vh,220px)]">
       <div className="mx-auto max-w-[1180px] px-[clamp(20px,5vw,64px)]">
@@ -82,12 +86,16 @@ export default function Articulo({
               <Tarjetas key={i} items={doc.indicadores ?? []} columnas={3} />
             ) : trozo === 'RECONOCIMIENTOS' ? (
               <Reconocimientos key={i} modo="lista" />
+            ) : trozo === 'EVIDENCIAS' ? (
+              <Evidencias key={i} />
+            ) : trozo === 'RUTAS' ? (
+              <RutasContacto key={i} />
             ) : (
               <Invitacion
                 key={i}
                 compacta
                 titulo="¿Reconoces tres o más en tu organización?"
-                texto="Es el momento de mirarlo con datos y no de memoria. Cuéntame qué estás viendo y te digo con honestidad si es mi tema o no."
+                texto="Es el momento de mirarlo con datos y no de memoria. Cuéntamelo y te digo con honestidad cuál es el camino: casi siempre empieza con un diagnóstico de Talentoría."
               />
             )
           ) : trozo.trim() ? (

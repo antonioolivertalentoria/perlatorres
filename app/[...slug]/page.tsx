@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!doc) return {};
 
   return {
-    title: doc.tituloSeo,
+    title: doc.tituloAbsoluto ? { absolute: doc.tituloAbsoluto } : doc.tituloSeo,
     description: doc.description,
     keywords: doc.keywords,
     alternates: { canonical: `/${doc.slug}` },
@@ -55,12 +55,12 @@ const INVITACION: Record<string, { titulo: string; texto?: string }> = {
   'perla-torres': {
     titulo: '¿Trabajamos juntos?',
     texto:
-      'Ya sabes de dónde vengo. Cuéntame de dónde vienes tú y qué está pasando en tu equipo o en tu carrera.',
+      'Ya sabes de dónde vengo. Cuéntame de dónde vienes tú y qué está pasando en tu empresa o en tu carrera.',
   },
   'liderazgo-consciente': {
     titulo: 'Hablemos de tus líderes.',
     texto:
-      'Un diagnóstico honesto empieza con una conversación. Dime el tamaño de la empresa, el área y qué has intentado ya.',
+      'Un diagnóstico honesto empieza con una conversación. Dime el tamaño de la empresa, el área y qué has intentado ya; el diagnóstico y el programa los ejecuta Talentoría.',
   },
 };
 

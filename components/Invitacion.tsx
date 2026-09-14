@@ -1,19 +1,18 @@
-import Link from 'next/link';
 import { CONTACTO } from '@/lib/site';
+import RutasContacto from './RutasContacto';
 
 /**
- * Cierre con invitación a escribir. Va donde el interés es más alto, no solo
- * al final de la página.
+ * Cierre con invitación. Va donde el interés es más alto, no solo al final de
+ * la página, y siempre ofrece las dos rutas: servicios de empresa a Talentoría,
+ * y conferencias, medios y alianzas a Perla.
  */
 export default function Invitacion({
   titulo,
   texto,
-  boton = 'Escríbeme',
   compacta = false,
 }: {
   titulo: string;
   texto?: string;
-  boton?: string;
   compacta?: boolean;
 }) {
   return (
@@ -35,20 +34,14 @@ export default function Invitacion({
       </h2>
       {texto && <p className="mt-5 max-w-[58ch] text-[16px] leading-[1.75] text-cuerpo">{texto}</p>}
 
-      <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-4">
-        <Link
-          href="/contacto"
-          className="rounded-sm border border-senal/60 bg-senal/15 px-6 py-3 font-mono text-[12px] uppercase tracking-[0.16em] text-luz no-underline transition-colors hover:border-senal hover:bg-senal/30"
-        >
-          {boton}
-        </Link>
-        <a
-          href={`mailto:${CONTACTO.correo}`}
-          className="font-mono text-[12px] tracking-[0.06em] text-tenue no-underline transition-colors hover:text-luz"
-        >
-          {CONTACTO.correo}
-        </a>
-      </div>
+      <RutasContacto compacta={compacta} />
+
+      <a
+        href={`mailto:${CONTACTO.correo}`}
+        className="mt-7 inline-block font-mono text-[12px] tracking-[0.06em] text-tenue no-underline transition-colors hover:text-luz"
+      >
+        {CONTACTO.correo}
+      </a>
     </aside>
   );
 }
