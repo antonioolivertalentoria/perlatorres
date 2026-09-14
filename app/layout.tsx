@@ -3,6 +3,7 @@ import './globals.css';
 import Cabecera from '@/components/Cabecera';
 import PieDePagina from '@/components/PieDePagina';
 import Jsonld from '@/components/Jsonld';
+import Analitica from '@/components/Analitica';
 import { grafoBase } from '@/lib/schema';
 import { SITE, SITE_URL } from '@/lib/site';
 
@@ -75,6 +76,14 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
   },
+  /**
+   * Verificación de Google Search Console por etiqueta HTML. Se activa
+   * definiendo GOOGLE_SITE_VERIFICATION en Vercel con el valor del atributo
+   * `content` que da el panel (solo el token, no la etiqueta completa).
+   */
+  ...(process.env.GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } }
+    : {}),
 };
 
 export const viewport = {
@@ -98,6 +107,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <PieDePagina />
+        {process.env.NEXT_PUBLIC_GA_ID && <Analitica id={process.env.NEXT_PUBLIC_GA_ID} />}
       </body>
     </html>
   );
