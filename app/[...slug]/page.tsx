@@ -45,10 +45,17 @@ const SIGUIENTE: Record<string, { href: string; texto: string; etiqueta: string 
   },
 };
 
+/**
+ * Páginas que pertenecen a El ROI de la Conciencia. Ahí no puede aparecer
+ * ningún enlace a Talentoría: la arquitectura de marcas que pidió Perla
+ * mantiene las dos marcas sin vínculo directo entre sí.
+ */
+const SIN_TALENTORIA = new Set(['conciencia-y-negocios']);
+
 /** Cierre con invitación a escribir, al final de cada página. */
 const INVITACION: Record<string, { titulo: string; texto?: string }> = {
   'conciencia-y-negocios': {
-    titulo: 'Si algo de esto te sonó a tu empresa, escríbeme.',
+    titulo: 'Si algo de esto te sonó, escríbeme.',
     texto:
       'No necesito que traigas el problema bien diagnosticado. Cuéntame qué está pasando en tus palabras y te contesto con honestidad, incluso si la respuesta es que no soy la persona indicada.',
   },
@@ -84,6 +91,7 @@ export default async function PaginaSuelta({ params }: Props) {
         doc={doc}
         siguiente={SIGUIENTE[ruta]}
         invitacion={INVITACION[ruta]}
+        sinTalentoria={SIN_TALENTORIA.has(ruta)}
         extra={ruta === 'contacto' ? <FormularioContacto /> : undefined}
       />
     </>

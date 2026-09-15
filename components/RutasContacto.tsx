@@ -2,19 +2,33 @@ import Link from 'next/link';
 import { RUTAS_CONTACTO } from '@/lib/site';
 
 /**
- * Las dos rutas, siempre juntas y siempre en el mismo orden.
+ * Las dos rutas, normalmente juntas y siempre en el mismo orden.
  * Quien busca un servicio va a Talentoría, que es quien diseña y ejecuta;
  * quien busca a Perla —conferencias, medios, alianzas— le escribe a ella.
  * Separarlas evita prometer que Perla atenderá personalmente cada solicitud.
+ *
+ * `sinTalentoria` esconde la primera ruta. Se usa en las páginas de El ROI de
+ * la Conciencia: la arquitectura de marcas que pidió Perla prohíbe que esa
+ * marca y Talentoría aparezcan enlazadas directamente entre sí.
  */
-export default function RutasContacto({ compacta = false }: { compacta?: boolean }) {
+export default function RutasContacto({
+  compacta = false,
+  sinTalentoria = false,
+}: {
+  compacta?: boolean;
+  sinTalentoria?: boolean;
+}) {
+  const rutas = sinTalentoria
+    ? RUTAS_CONTACTO.filter((r) => !r.externo)
+    : RUTAS_CONTACTO;
+
   return (
     <div
-      className={`grid gap-px overflow-hidden rounded-sm border border-senal/20 bg-senal/20 md:grid-cols-2 ${
-        compacta ? 'mt-8' : 'mt-10'
-      }`}
+      className={`grid gap-px overflow-hidden rounded-sm border border-senal/20 bg-senal/20 ${
+        rutas.length > 1 ? 'md:grid-cols-2' : ''
+      } ${compacta ? 'mt-8' : 'mt-10'}`}
     >
-      {RUTAS_CONTACTO.map((r) => (
+      {rutas.map((r) => (
         <div key={r.titulo} className="flex flex-col bg-marino p-[clamp(24px,3.5vw,38px)]">
           <h3 className="font-serif text-[clamp(20px,2.3vw,26px)] leading-snug text-luz">
             {r.titulo}

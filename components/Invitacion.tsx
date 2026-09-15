@@ -10,10 +10,13 @@ export default function Invitacion({
   titulo,
   texto,
   compacta = false,
+  sinTalentoria = false,
 }: {
   titulo: string;
   texto?: string;
   compacta?: boolean;
+  /** Ver RutasContacto: las páginas de El ROI no enlazan a Talentoría. */
+  sinTalentoria?: boolean;
 }) {
   return (
     <aside
@@ -34,7 +37,7 @@ export default function Invitacion({
       </h2>
       {texto && <p className="mt-5 max-w-[58ch] text-[16px] leading-[1.75] text-cuerpo">{texto}</p>}
 
-      <RutasContacto compacta={compacta} />
+      <RutasContacto compacta={compacta} sinTalentoria={sinTalentoria} />
 
       <a
         href={`mailto:${CONTACTO.correo}`}

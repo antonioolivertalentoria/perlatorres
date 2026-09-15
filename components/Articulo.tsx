@@ -16,12 +16,15 @@ export default function Articulo({
   siguiente,
   invitacion,
   extra,
+  sinTalentoria = false,
 }: {
   doc: Documento;
   migas?: { href: string; texto: string }[];
   siguiente?: { href: string; texto: string; etiqueta?: string };
   /** Cierre con llamada a escribir, al final del texto. */
   invitacion?: { titulo: string; texto?: string };
+  /** Ver RutasContacto: las páginas de El ROI no enlazan a Talentoría. */
+  sinTalentoria?: boolean;
   /** Contenido propio de la página (por ejemplo, el formulario de contacto). */
   extra?: React.ReactNode;
 }) {
@@ -89,7 +92,7 @@ export default function Articulo({
             ) : trozo === 'EVIDENCIAS' ? (
               <Evidencias key={i} />
             ) : trozo === 'RUTAS' ? (
-              <RutasContacto key={i} />
+              <RutasContacto key={i} sinTalentoria={sinTalentoria} />
             ) : (
               <Invitacion
                 key={i}
@@ -109,7 +112,13 @@ export default function Articulo({
 
         <Faqs faqs={doc.faqs} />
 
-        {invitacion && <Invitacion titulo={invitacion.titulo} texto={invitacion.texto} />}
+        {invitacion && (
+          <Invitacion
+            titulo={invitacion.titulo}
+            texto={invitacion.texto}
+            sinTalentoria={sinTalentoria}
+          />
+        )}
 
         {siguiente && (
           <nav className="mt-24 max-w-medida border-t border-luz/10 pt-8" aria-label="Continuar">
