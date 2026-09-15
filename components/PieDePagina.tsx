@@ -1,7 +1,14 @@
+'use client';
+
 import Link from 'next/link';
-import { CONTACTO, NAV_COMPLETO, SITE } from '@/lib/site';
+import { usePathname } from 'next/navigation';
+import { CONTACTO, NAV_COMPLETO, RUTAS_SIN_TALENTORIA, SITE } from '@/lib/site';
 
 export default function PieDePagina() {
+  // En las páginas de El ROI de la Conciencia el pie tampoco enlaza a
+  // Talentoría. El correo de Perla sí se queda: es su dirección, no la firma.
+  const sinTalentoria = RUTAS_SIN_TALENTORIA.has(usePathname());
+
   return (
     <footer className="mt-24 border-t border-luz/10 py-16">
       <div className="mx-auto max-w-[1180px] px-[clamp(20px,5vw,64px)]">
@@ -44,14 +51,16 @@ export default function PieDePagina() {
             >
               LinkedIn
             </a>
-            <a
-              href={SITE.organizacion.url}
-              target="_blank"
-              rel="noopener"
-              className="mt-3 font-mono text-[11px] uppercase tracking-[0.14em] text-tenue no-underline transition-colors hover:text-claro"
-            >
-              talentoria.com ↗
-            </a>
+            {!sinTalentoria && (
+              <a
+                href={SITE.organizacion.url}
+                target="_blank"
+                rel="noopener"
+                className="mt-3 font-mono text-[11px] uppercase tracking-[0.14em] text-tenue no-underline transition-colors hover:text-claro"
+              >
+                talentoria.com ↗
+              </a>
+            )}
           </div>
         </div>
 

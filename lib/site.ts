@@ -146,6 +146,13 @@ export const EVIDENCIAS: Evidencia[] = [
   },
 ];
 
+/**
+ * Rutas que pertenecen a El ROI de la Conciencia. Ahí no aparece ningún
+ * enlace a Talentoría —ni editorial, ni en los cierres, ni en el pie—,
+ * porque la arquitectura de marcas mantiene las dos sin vínculo directo.
+ */
+export const RUTAS_SIN_TALENTORIA = new Set(['/conciencia-y-negocios']);
+
 export type Enlace = { href: string; texto: string };
 
 /** Menú principal. Contacto va aparte, como botón. */

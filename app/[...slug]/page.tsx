@@ -5,6 +5,7 @@ import FormularioContacto from '@/components/FormularioContacto';
 import Jsonld from '@/components/Jsonld';
 import { pagina, paginas } from '@/lib/contenido';
 import { grafoArticulo, grafoPerfil } from '@/lib/schema';
+import { RUTAS_SIN_TALENTORIA } from '@/lib/site';
 
 type Props = { params: Promise<{ slug: string[] }> };
 
@@ -45,13 +46,6 @@ const SIGUIENTE: Record<string, { href: string; texto: string; etiqueta: string 
   },
 };
 
-/**
- * Páginas que pertenecen a El ROI de la Conciencia. Ahí no puede aparecer
- * ningún enlace a Talentoría: la arquitectura de marcas que pidió Perla
- * mantiene las dos marcas sin vínculo directo entre sí.
- */
-const SIN_TALENTORIA = new Set(['conciencia-y-negocios']);
-
 /** Cierre con invitación a escribir, al final de cada página. */
 const INVITACION: Record<string, { titulo: string; texto?: string }> = {
   'conciencia-y-negocios': {
@@ -91,7 +85,7 @@ export default async function PaginaSuelta({ params }: Props) {
         doc={doc}
         siguiente={SIGUIENTE[ruta]}
         invitacion={INVITACION[ruta]}
-        sinTalentoria={SIN_TALENTORIA.has(ruta)}
+        sinTalentoria={RUTAS_SIN_TALENTORIA.has(`/${ruta}`)}
         extra={ruta === 'contacto' ? <FormularioContacto /> : undefined}
       />
     </>
